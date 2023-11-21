@@ -60,9 +60,9 @@ def done ():
 
 	return redirect(redir)
 
-@app.route("/add")
-def add():
-	return render_template('add.html',h=heading,t=title)
+#@app.route("/add")
+#def add():
+#	return render_template('add.html',h=heading,t=title)
 
 @app.route("/action", methods=['POST'])
 def action ():
@@ -85,6 +85,7 @@ def remove ():
 def update ():
 	id=request.values.get("_id")
 	task=todos.find({"_id":ObjectId(id)})
+	print(f'id: {id}, task: {task}')
 	return render_template('update.html',tasks=task,h=heading,t=title)
 
 @app.route("/action3", methods=['POST'])
@@ -107,7 +108,9 @@ def search():
 	print(f'key: {key}, refer: {refer}')
 	if(refer=="id"):
 		try:
+			print(ObjectId(key))
 			todos_l = todos.find({refer:ObjectId(key)})
+			print(f'foo:{todos_l}')
 			if not todos_l:
 				#return render_template('index.html',a2=a2,todos=todos_l,t=title,h=heading,error="No such ObjectId is present")
 				return render_template('index.html',a2=refer,todos=todos_l,t=title,h=heading,error="No such ObjectId is present")
