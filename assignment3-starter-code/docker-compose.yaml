@@ -1,0 +1,26 @@
+version: '3'
+services:
+  flask-app:
+    image: cc_bd:tag #${FLASK_APP_IMAGE:-your-flask-app-image:latest} #your-flask-app-image:tag
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+#commands
+#docker-compose up -d # start services
+#docker-compose ps # verfiy running 
+#docker-compose down ## stop services
+# test -> http://localhost:5000
+

@@ -17,3 +17,4 @@ CMD ["python", "./app.py"]
 
 #make image 
 # docker build -t image-name .
+# docker run image-name:tag
