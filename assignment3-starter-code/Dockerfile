@@ -18,3 +18,8 @@ CMD ["python", "./app.py"]
 #make image 
 # docker build -t image-name .
 # docker run image-name:tag
+##############################
+# pushing 
+# docker login 
+# docker tag image docker_account/image:tag
+# docker push docker_account/image:tag
