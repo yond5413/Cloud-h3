@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cc_bd
+spec:
+  selector:
+    app: cc_bd
+  ports:
+    - port: 5000
+      targetPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cc_bd
+spec:
+  selector:
+    matchLabels:
+      app: cc_bd
+  template:
+    metadata:
+      labels:
+        app: cc_bd
+    spec:
+      containers:
+        - name: cc_bd
+          image: cc_bd #your-flask-app-image:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongo:27017/your-database"
