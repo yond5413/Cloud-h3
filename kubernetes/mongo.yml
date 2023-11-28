@@ -18,7 +18,7 @@ spec:
   selector:
     app: mongo
   ports:
-    -ports: 27017
+    - port: 27017
       targetPort: 27017
 ##### can clairfy later
 ---
@@ -30,20 +30,20 @@ spec:
   selector:
     matchLabels:
       app: mongo
-    template:
-      metadata:
-        labels:
-          app: mongo
-      spec:
-        containers:
-          - name: mongo 
-            image: mongo:3.6.17-xenial
-            ports:
-              - containerPort: 27017
-            volumeMounts:
-              - name: storage
-                mountPath: /data/db
-        volumes:
-          - name: storage
-            persistentVolumeClaim:
-              claimName: mongo-pvc
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo 
+          image: mongo:3.6.17-xenial
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: storage
+              mountPath: /data/db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc

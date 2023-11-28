@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cc_bd
+  name: cc-bd 
+  #cc_bd doesn't fit kubernetes naming conventions
 spec:
   selector:
-    app: cc_bd
+    app: cc-bd
   ports:
     - port: 5000
       targetPort: 5000
@@ -13,19 +14,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cc_bd
+  name: cc-bd
 spec:
   selector:
     matchLabels:
-      app: cc_bd
+      app: cc-bd
   template:
     metadata:
       labels:
-        app: cc_bd
+        app: cc-bd
     spec:
       containers:
-        - name: cc_bd
-          image: cc_bd #your-flask-app-image:latest
+        - name: cc-bd
+          image: yd2696/cc_bd #your-flask-app-image:latest
           ports:
             - containerPort: 5000
           env:
