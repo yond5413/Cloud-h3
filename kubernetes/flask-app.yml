@@ -7,15 +7,17 @@ spec:
   selector:
     app: cc-bd
   ports:
-    - port: 5000
+    - protocol: TCP # new
+      port: 5000
       targetPort: 5000
-
+  #type: LoadBalancer ### 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cc-bd
 spec:
+  replicas: 3 ###2-3?
   selector:
     matchLabels:
       app: cc-bd
@@ -26,9 +28,14 @@ spec:
     spec:
       containers:
         - name: cc-bd
-          image: yd2696/cc_bd #your-flask-app-image:latest
+          image: yd2696/cc_bd:tag #latest #your-flask-app-image:latest
           ports:
             - containerPort: 5000
           env:
-            - name: MONGO_URI
-              value: "mongodb://mongo:27017/your-database"
+            - name: MONGO_HOST
+              value: "mongo"
+            - name: MONGO_PORT
+              value: "27017"
+
+## commands 
+# minikube service cc-bd --url
