@@ -17,7 +17,8 @@ ENV NAME World
 CMD ["python", "./app.py"]
 
 #make image 
-# docker build -t image-name .
+# if no tag it will default to latest
+# docker build -t image-name:tag .
 # docker run image-name:tag
 ##############################
 # pushing 

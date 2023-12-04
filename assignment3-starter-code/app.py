@@ -126,6 +126,22 @@ def search():
 def about():
 	return render_template('credits.html',t=title,h=heading)
 
+##################################################################################
+# monitoring
+@app.route('/health')
+def health():
+    return "healthy", 200
+
+@app.route('/live')
+def live():
+    return "live", 200
+
+@app.route('/crash')
+def crash():
+    # Simulate an error by returning a non-200 status code
+    return "crash test", 500
+##################################################################################
+
 if __name__ == "__main__":
 	env = os.environ.get('FLASK_ENV', 'development')
 	port = int(os.environ.get('PORT', 5000))

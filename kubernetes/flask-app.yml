@@ -29,6 +29,7 @@ spec:
       containers:
         - name: cc-bd
           image: yd2696/cc_bd:tag #latest #your-flask-app-image:latest
+          imagePullPolicy: Always #### helpful
           ports:
             - containerPort: 5000
           env:
@@ -36,6 +37,34 @@ spec:
               value: "mongo"
             - name: MONGO_PORT
               value: "27017"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30 #5
+            periodSeconds: 60 #5
+          readinessProbe:
+            httpGet:
+              path: /live
+              port: 5000
+            initialDelaySeconds: 30 #5
+            periodSeconds: 60 #10
+###############################              
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+# Apply or create the Deployment
+#-> strategy parts 
+#kubectl apply -f your-deployment-file.yaml
+
+# Monitor the progress of the rolling update
+#kubectl rollout status deployment foo-deployment
+# To roll back to the previous version (if needed)
+#kubectl rollout undo deployment -foo-deployment
 
 ## commands 
 # minikube service cc-bd --url
+#4 easy once stuff is configured
+#5-8 can be done locally

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: flask-replication-controller  # Corrected the typo here
+spec:
+  replicas: 3
+  selector:  
+    app: cc-bd
+  template:
+    metadata:
+      labels:
+        app: cc-bd
+    spec:
+      containers:
+        - name: cc-bd
+          image: yd2696/cc_bd:tag
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_HOST
+              value: "mongo"
+            - name: MONGO_PORT
+              value: "27017"

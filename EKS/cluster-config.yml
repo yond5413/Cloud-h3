@@ -1,0 +1,10 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: assign-3
+  region: us-east-1
+iam:
+  serviceRoleARN: arn:aws:iam::239946977323:role/assign3ClusterRole
+#assign3ClusterRole 
+

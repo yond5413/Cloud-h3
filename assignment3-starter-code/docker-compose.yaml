@@ -23,4 +23,4 @@ volumes:
 #docker-compose ps # verfiy running 
 #docker-compose down ## stop services
 # test -> http://localhost:5000
-
+#minikube service --url cc-bd

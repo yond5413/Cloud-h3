@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cc-bd 
+  #cc_bd doesn't fit kubernetes naming conventions
+spec:
+  selector:
+    app: cc-bd
+  ports:
+    - protocol: TCP # new
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer ### 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cc-bd
+spec:
+  replicas: 3 ###2-3?
+  selector:
+    matchLabels:
+      app: cc-bd
+  template:
+    metadata:
+      labels:
+        app: cc-bd
+    spec:
+      containers:
+        - name: cc-bd
+          image: yd2696/cc_bd:tag #latest #your-flask-app-image:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_HOST
+              value: "mongo"
+            - name: MONGO_PORT
+              value: "27017"
+
+## commands 
+# minikube service cc-bd --url
+
+
